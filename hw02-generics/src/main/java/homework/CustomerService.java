@@ -23,7 +23,7 @@ public class CustomerService {
         customerService.put(customer,data);
     }
 
-    public Map.Entry<Customer, String> getCopyOfMapEntry(Map.Entry<Customer, String> mapEntry){
+    private Map.Entry<Customer, String> getCopyOfMapEntry(Map.Entry<Customer, String> mapEntry){
         if (mapEntry == null){
             return null;
         }
