@@ -13,28 +13,28 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TestService {
-    public static void run(Class<?> clazz) throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
+    public static void run(Class<?> clazz) throws NoSuchMethodException, InstantiationException, IllegalAccessException {
         new TestService().start(clazz);
     }
 
-    private void start(Class<?> clazz) throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
+    private void start(Class<?> clazz) throws NoSuchMethodException, InstantiationException, IllegalAccessException {
         Method beforeMethod = getMethodByAnnotationType(clazz, Before.class);
         Method afterMethod = getMethodByAnnotationType(clazz, After.class);
         List<Method> testMethods = getMethodsByAnnotationType(clazz, Test.class);
         int numberOfTests = testMethods.size();
         int numberOfPassedTests = 0;
         int numberOfFailedTests = 0;
-        List<TestClass> testClasses = createListOfTestClass(clazz, numberOfTests);
+        TestClass testClass;
 
-        for (int i = 0; i < numberOfTests; i++) {
+        for (Method testMethod : testMethods) {
             try {
-                callMethod(beforeMethod,testClasses.get(i));
-                callMethod(testMethods.get(i),testClasses.get(i));
-                callMethod(afterMethod,testClasses.get(i));
+                testClass = createTestClassObject(clazz);
+                callMethod(beforeMethod, testClass);
+                callMethod(testMethod, testClass);
+                callMethod(afterMethod, testClass);
                 numberOfPassedTests++;
             } catch (InvocationTargetException e) {
-                System.out.println(testMethods.get(i).getName() + " failed");
-                callMethod(afterMethod,testClasses.get(i));
+                System.out.println(testMethod.getName() + " failed");
                 numberOfFailedTests++;
             }
         }
@@ -67,14 +67,6 @@ public class TestService {
     private TestClass createTestClassObject(Class<?> clazz) throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
         Constructor<TestClass> constructor = (Constructor<TestClass>) clazz.getConstructor();
         return  constructor.newInstance();
-    }
-
-    private List<TestClass> createListOfTestClass(Class<?> clazz, int numberTests) throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
-        List<TestClass> testClasses = new ArrayList<>();
-        for (int i = 0; i < numberTests; i++) {
-            testClasses.add(createTestClassObject(clazz));
-        }
-        return testClasses;
     }
 
     private void callMethod(Method method, TestClass testClass) throws InvocationTargetException, IllegalAccessException {
