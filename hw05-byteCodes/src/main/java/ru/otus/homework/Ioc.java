@@ -3,7 +3,9 @@ package ru.otus.homework;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 class Ioc {
 
@@ -18,19 +20,23 @@ class Ioc {
 
     static class DemoInvocationHandler implements InvocationHandler {
         private final TestLoggingInterface testLoggingClass;
+        private final Class<?> clazz;
+        private final Method[] declaredMethods;
+        private final List<Method> annotationLogPresentMethods;
 
         DemoInvocationHandler(TestLoggingInterface testLoggingClass) {
             this.testLoggingClass = testLoggingClass;
+            clazz = testLoggingClass.getClass();
+            declaredMethods = clazz.getDeclaredMethods();
+            annotationLogPresentMethods = getAnnotationLogPresentMethods(declaredMethods);
         }
 
         @Override
         public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-            Class<?> clazz = testLoggingClass.getClass();
-            Method[] methods = clazz.getDeclaredMethods();
 
-            for (Method declaredMethod: methods) {
-                if (declaredMethod.isAnnotationPresent(Log.class) && isMethodsEquals(declaredMethod, method)) {
-                    printAutoLog(declaredMethod, args);
+            for (Method annotationLogPresentMethod: annotationLogPresentMethods) {
+                if (isMethodsEquals(annotationLogPresentMethod, method)) {
+                    printAutoLog(annotationLogPresentMethod, args);
                     break;
                 }
             }
@@ -43,6 +49,16 @@ class Ioc {
             return "DemoInvocationHandler{" +
                     "testLoggingClass=" + testLoggingClass +
                     '}';
+        }
+
+        private List<Method> getAnnotationLogPresentMethods(Method[] methods){
+            var annotationLogPresentMethods = new ArrayList<Method>();
+
+            for (Method method : methods) {
+                if(method.isAnnotationPresent(Log.class))
+                    annotationLogPresentMethods.add(method);
+            }
+            return annotationLogPresentMethods;
         }
 
         private boolean isNameOfMethodsEquals(Method method1, Method method2){
