@@ -3,9 +3,7 @@ package ru.otus.homework;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 class Ioc {
 
@@ -22,7 +20,7 @@ class Ioc {
         private final TestLoggingInterface testLoggingClass;
         private final Class<?> clazz;
         private final Method[] declaredMethods;
-        private final List<Method> annotationLogPresentMethods;
+        private final Set<Method> annotationLogPresentMethods;
 
         DemoInvocationHandler(TestLoggingInterface testLoggingClass) {
             this.testLoggingClass = testLoggingClass;
@@ -51,8 +49,8 @@ class Ioc {
                     '}';
         }
 
-        private List<Method> getAnnotationLogPresentMethods(Method[] methods){
-            var annotationLogPresentMethods = new ArrayList<Method>();
+        private HashSet<Method> getAnnotationLogPresentMethods(Method[] methods){
+            var annotationLogPresentMethods = new HashSet<Method>();
 
             for (Method method : methods) {
                 if(method.isAnnotationPresent(Log.class))
