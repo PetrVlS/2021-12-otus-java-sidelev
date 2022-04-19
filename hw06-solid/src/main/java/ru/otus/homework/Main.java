@@ -4,7 +4,7 @@ import java.io.IOException;
 
 public class Main {
     public static void main(String[] args) throws IOException {
-        var atmService = new ATMService(new ATMNameBank());
+        var atmService = new ATMService(new ATM());
         atmService.run();
     }
 }

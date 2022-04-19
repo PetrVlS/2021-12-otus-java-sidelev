@@ -3,6 +3,7 @@ package ru.otus.homework;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.*;
 
 import static ru.otus.homework.Operation.*;
 
@@ -12,6 +13,7 @@ public class ATMService {
 
     public ATMService(ATM atm) {
         this.atm = atm;
+
     }
 
     public void run() throws IOException {
@@ -61,22 +63,29 @@ public class ATMService {
     }
 
     private void executePutOperation() throws IOException {
-        var numberOfBanknotes100 = setNumberOfBanknotes(100);
-        var numberOfBanknotes500 = setNumberOfBanknotes(500);
-        var numberOfBanknotes1000 = setNumberOfBanknotes(1000);
-        var result = atm.executePutOperation(numberOfBanknotes1000, numberOfBanknotes500, numberOfBanknotes100);
+        Queue<Cash> cash = setAndGetCash();
+        var result = atm.executePutOperation(cash);
         sayResult(result);
     }
 
-    private int setNumberOfBanknotes(int denomination) throws IOException {
-        System.out.println("Пожалуйста введите количество купюр номиналом: " + denomination);
-        var reader = new BufferedReader(new InputStreamReader(System.in));
-        return Integer.parseInt(reader.readLine());
+    private Queue<Cash> setAndGetCash() throws IOException {
+        Set<ATMCell> atmCells = atm.getAtmCells();
+        Queue<Cash> cash = new LinkedList<>();
+        int numberOfBanknotes;
+
+        for (ATMCell atmCell : atmCells) {
+            System.out.println("Пожалуйста введите количество купюр номиналом: " + atmCell.getDenomination());
+            var reader = new BufferedReader(new InputStreamReader(System.in));
+            numberOfBanknotes = Integer.parseInt(reader.readLine());
+            cash.add(new Cash(atmCell.getBanknote(), numberOfBanknotes));
+        }
+        return cash;
     }
 
     private void executeWithdrawOperation() throws IOException {
         var amountOperation = setAmountOperation();
         var result = atm.executeWithdrawOperation(amountOperation);
+
         sayResult(result);
     }
 
