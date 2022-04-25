@@ -18,6 +18,5 @@ public class FileSerializer implements Serializer {
         var file = new File(fileName);
         ObjectMapper mapper = new ObjectMapper();
         mapper.writeValue(file, data);
-        //формирует результирующий json и сохраняет его в файл
     }
 }
