@@ -4,6 +4,7 @@ import ru.otus.model.Message;
 
 public class ProcessorException implements Processor {
 
+
     private final DataTimeProvider dataTimeProvider;
 
     public ProcessorException(DataTimeProvider dataTimeProvider) {
