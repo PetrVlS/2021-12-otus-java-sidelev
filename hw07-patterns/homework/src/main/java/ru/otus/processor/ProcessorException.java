@@ -2,13 +2,11 @@ package ru.otus.processor;
 
 import ru.otus.model.Message;
 
-import java.time.LocalDateTime;
-
 public class ProcessorException implements Processor {
 
-    DataTimeProviderImpl dataTimeProvider;
+    private final DataTimeProvider dataTimeProvider;
 
-    public ProcessorException(DataTimeProviderImpl dataTimeProvider) {
+    public ProcessorException(DataTimeProvider dataTimeProvider) {
         this.dataTimeProvider = dataTimeProvider;
     }
 
