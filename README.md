@@ -8,4 +8,4 @@ hw06-solid: Эмулятор банкомата
 hw07-patterns: Обработчик сообщений
 hw08-io: Обработчик json-ов
 hw09-jdbc: Самодельный ORM
-
+hw10-hibernate: Использование Hibernate
