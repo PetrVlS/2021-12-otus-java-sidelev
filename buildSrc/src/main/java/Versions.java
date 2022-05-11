@@ -6,4 +6,8 @@ public interface Versions {
     String glassfishJson = "1.1.4";
     String protobuf = "3.19.4";
 
+    String gson = "2.8.9";
+    String jetty = "11.0.7";
+    String freemarker = "2.3.31";
+
 }
