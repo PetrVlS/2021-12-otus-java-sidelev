@@ -74,9 +74,10 @@ public class AppComponentsContainerImpl implements AppComponentsContainer {
     private <C> void checkComponent(List<C> components) {
         if (components.size() > 1) {
             throw new ContextCreationException("Duplicate components");
-        } else if (components.size() == 1) {
-            checkComponent(components.get(0));
+        } else if (components.isEmpty()) {
+            throw new ContextCreationException("Component not found");
         }
+
     }
 
     private void checkComponent(String componentId) {
