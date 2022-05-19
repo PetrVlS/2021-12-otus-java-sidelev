@@ -11,3 +11,4 @@
 - hw10-hibernate: Использование Hibernate
 - hw11-cache: Свой cache engine
 - hw12-webserver: Веб сервер
+- hw13-di: Собственный IoC контейнер
