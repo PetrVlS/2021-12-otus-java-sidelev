@@ -4,23 +4,23 @@
 Понять как реализуется AOP, какие для этого есть технические средства.
 
 #Описание/Пошаговая инструкция выполнения домашнего задания:
-Разработайте такой функционал:
-метод класса можно пометить самодельной аннотацией @Log, например, так:
-class TestLogging {
-@Log
-public void calculation(int param) {};
-}
-При вызове этого метода "автомагически" в консоль должны логироваться значения параметров.
-Например так.
-class Demo {
-public void action() {
-new TestLogging().calculation(6);
-}
-}
-В консоле дожно быть:
-executed method: calculation, param: 6
-Обратите внимание: явного вызова логирования быть не должно.
-Учтите, что аннотацию можно поставить, например, на такие методы:
-public void calculation(int param1)
-public void calculation(int param1, int param2)
-public void calculation(int param1, int param2, String param3)
+Разработайте такой функционал:</br>
+метод класса можно пометить самодельной аннотацией @Log, например, так:</br>
+class TestLogging {</br>
+@Log</br>
+public void calculation(int param) {};</br>
+}</br>
+При вызове этого метода "автомагически" в консоль должны логироваться значения параметров.</br>
+Например так:</br>
+class Demo {</br>
+public void action() {</br>
+new TestLogging().calculation(6);</br>
+}</br>
+}</br>
+В консоле дожно быть:</br>
+executed method: calculation, param: 6</br>
+Обратите внимание: явного вызова логирования быть не должно.</br>
+Учтите, что аннотацию можно поставить, например, на такие методы:</br>
+public void calculation(int param1)</br>
+public void calculation(int param1, int param2)</br>
+public void calculation(int param1, int param2, String param3)</br>
