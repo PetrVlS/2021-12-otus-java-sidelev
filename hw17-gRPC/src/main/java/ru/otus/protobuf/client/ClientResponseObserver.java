@@ -2,7 +2,6 @@ package ru.otus.protobuf.client;
 
 import io.grpc.stub.StreamObserver;
 import ru.otus.protobuf.generated.NumberResponse;
-import ru.otus.protobuf.server.NumberServer;
 
 public class ClientResponseObserver implements StreamObserver<ru.otus.protobuf.generated.NumberResponse> {
 

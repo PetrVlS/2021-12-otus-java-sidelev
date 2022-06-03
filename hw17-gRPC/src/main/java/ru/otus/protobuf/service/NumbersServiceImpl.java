@@ -4,7 +4,6 @@ import io.grpc.stub.StreamObserver;
 import ru.otus.protobuf.generated.NumberRequest;
 import ru.otus.protobuf.generated.NumberResponse;
 import ru.otus.protobuf.generated.NumbersServiceGrpc;
-import ru.otus.protobuf.server.NumberServer;
 
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
