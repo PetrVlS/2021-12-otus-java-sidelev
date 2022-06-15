@@ -1,12 +1,14 @@
 package ru.otus.controllers;
 
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
-import ru.otus.services.ClientServiceValue;
-import ru.otus.services.ClientService;
+import ru.otus.dto.ClientDTO;
+
+import java.util.List;
 
 //http://localhost:8081/clients
 
@@ -23,11 +25,12 @@ public class ClientController {
 
     @GetMapping("/clients")
     public Mono<String> clientsListView(Model model) {
-        model.addAttribute("clientService", new ClientService());
+        model.addAttribute("clientDTO", new ClientDTO());
         return client.get().uri("/clients")
                 .retrieve()
-                .bodyToMono(ClientServiceValue.class)
-                .doOnNext(clientServiceValue -> model.addAttribute("clients", clientServiceValue.clientServiceList()))
+                .bodyToMono(new ParameterizedTypeReference<List<ClientDTO>>() {
+                })
+                .doOnNext(clientDTOList -> model.addAttribute("clients", clientDTOList))
                 .then(Mono.just("clients"));
     }
 

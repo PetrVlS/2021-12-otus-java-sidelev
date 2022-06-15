@@ -1,20 +1,20 @@
-package ru.otus.services;
+package ru.otus.dto;
 
-import ru.otus.domain.Client;
-import ru.otus.domain.Phone;
+import ru.otus.jdbc.crm.model.Client;
+import ru.otus.jdbc.crm.model.Phone;
 
 import java.util.stream.Collectors;
 
-public class ClientService {
+public class ClientDTO {
     private String id;
     private String name;
     private String address;
     private String phones;
 
-    public ClientService() {
+    public ClientDTO() {
     }
 
-    public ClientService(Client client) {
+    public ClientDTO(Client client) {
         id = client.getId().toString();
         name = client.getName();
         address = client.getAddress().getStreet();
@@ -59,7 +59,7 @@ public class ClientService {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        ClientService that = (ClientService) o;
+        ClientDTO that = (ClientDTO) o;
 
         if (!id.equals(that.id)) return false;
         if (name != null ? !name.equals(that.name) : that.name != null) return false;
