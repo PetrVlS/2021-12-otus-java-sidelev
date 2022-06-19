@@ -1,0 +1,28 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8"/>
+    <title>Работа с клиентами</title>
+</head>
+
+<h4>Список клиентов</h4>
+<table class="clients">
+    <thead>
+    <tr>
+        <td style="width: 50px">Id</td>
+        <td style="width: 150px">Имя</td>
+        <td style="width: 200px">Адресс</td>
+        <td style="width: 130px">Телефон</td>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="client : ${clients}">
+        <td th:text="${client.id}"></td>
+        <td th:text="${client.name}"></td>
+        <td th:text="${client.address}"></td>
+        <td th:text="${client.phones}"></td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

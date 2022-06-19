@@ -16,4 +16,5 @@
 - hw15-thread: Последовательность чисел
 - hw16-concurrentCollections: Queues
 - hw17-gRPC: gRPC клиент-серверное приложение или "Убить босса"
+- hw18-SpringWebFlux: Реактивное Веб-приложение на Spring Boot
 
